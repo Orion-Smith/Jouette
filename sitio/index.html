@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	        <!-- 1 -->
+        <link title="timeline-styles" rel="stylesheet" 
+              href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+        <!-- 2 -->
+        <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
+
+        
+	<title>Jouette</title>
+</head>
+<style type="text/css">
+@font-face {
+  font-family: 'Bungee Shade';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/bungeeshade/v6/DtVkJxarWL0t2KdzK3oI_jkc5ijTjQJElti5.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Bungee Shade';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/bungeeshade/v6/DtVkJxarWL0t2KdzK3oI_jkc5yjTjQJElti5.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Bungee Shade';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/bungeeshade/v6/DtVkJxarWL0t2KdzK3oI_jkc6SjTjQJElg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+body{
+	/*background: url(/img/gliter.gif);
+    background-size: 400px;*/
+	background-color: black;
+}
+	#timeline-embed{
+		box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+	}
+	.tl-headline-title{
+		/*color: #77ff75 !important;*/
+		font-size: 47px !important;
+		font-family: 'Bungee Shade' !important;
+	}
+	.tl-media{
+		border: solid 4px black;
+	}
+	.tl-text p{
+		color:black ;
+		font-family: monospace !important;
+	}
+	.tl-slide{
+		    /*background-color: hsl(194deg 10% 50%);*/
+	}
+
+
+.tl-timeline p {
+    
+    font-size: 20px ;
+    
+}
+.undertow{
+	font-size: 15px !important;
+	color: #005ab7 !important;
+}
+</style>
+<style type="text/css">
+  .tl-timeaxis .tl-timeaxis-content-container .tl-timeaxis-major .tl-timeaxis-tick {
+    font-size: 19px !important;
+    line-height: 14px;
+    color: #0008ff !important;
+    width: 100px;
+    margin-left: -50px;
+}
+</style>
+<body>
+<div id='timeline-embed' style="width: 100%; height: 97vh;"></div>
+ <script type="text/javascript">
+            // The TL.Timeline constructor takes at least two arguments:
+            // the id of the Timeline container (no '#'), and
+            // the URL to your JSON data file or Google spreadsheet.
+            // the id must refer to an element "above" this code,
+            // and the element must have CSS styling to give it width and height
+            // optionally, a third argument with configuration options can be passed.
+            var additionalOptions = {
+              // start_at_end: true,
+              default_bg_color: "#00000054",
+              timenav_height: 150,
+              timenav_position: "top"
+            }
+            
+            timeline = new TL.Timeline('timeline-embed',
+            '/json/jouette.json',additionalOptions);
+        </script>
+
+</body>
+</html>

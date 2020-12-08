@@ -1,0 +1,51 @@
+{
+  "title": {
+    "media": {
+      "url": "/img/pez-trazo.png",
+      "caption": "",
+      "credit": ""
+    },
+    "text": {
+      "headline": "PIRATECH<br/> >>>>>",
+      "text": "<p>Documental digital sobre el desarrollo tecnológico y su relación con la copia.</p><p class=\"undertow\">Instrucciones: Hacer click en las flechas a la izquierda y derecha de la página o usar las flechas del teclado</p>"
+    }
+  },
+  "events": [
+    {
+      "media": {
+        "url": "url",
+        "caption": "caption",
+        "credit": "credit"
+      },
+      "start_date": {
+        "month": "5",
+        "day": "13",
+        "year": "1986"
+      },
+      "text": {
+        "headline": "Gabo",
+        "text": "<p>Aquí nací yo</p>"
+      },
+      "id":"13/5/1986-Gabo",
+      "class":"evento"
+    },
+    {
+      "media": {
+        "url": "url",
+        "caption": "caption",
+        "credit": "credit"
+      },
+      "start_date": {
+        "month": "6",
+        "day": "13",
+        "year": "1987"
+      },
+      "text": {
+        "headline": "otra cosa ",
+        "text": "<p>----</p>"
+      },
+      "id":"13/5/1986-Gabo",
+      "class":"evento"
+    }
+  ]
+}

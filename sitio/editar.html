@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="js/jquery.js"></script>
+
+	<title></title>
+</head>
+<style type="text/css">
+	@font-face {
+  font-family: 'Bungee Shade';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/bungeeshade/v6/DtVkJxarWL0t2KdzK3oI_jkc6SjTjQJElg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+body{
+	/*background: url(/img/gliter.gif);
+    background-size: 400px;*/
+	/*background-color: black;*/
+	background-color: #1f4497;
+}
+input{
+	min-height:30px;
+	font-size: 20px;
+	font-family: monospace;
+}
+select{
+	height: 54px;
+	font-size: 40px;
+	font-family: 'Bungee Shade';
+}
+#consola{
+	background-color: #0000ff4a;
+    width: 90%;
+    height: 10vh;
+    margin-left: 5%;
+    color: white;
+    border:2px solid springgreen;
+    font-size: 15px;
+}
+/*categorías*/
+.mainview{
+	width:90vw;
+	margin-left: 5vw;
+	font-family:monospace;
+}
+/*elementos*/
+.header{
+	height: 150px;
+	font-size: 40px;
+	font-family: 'Bungee Shade';
+	color:white;
+}
+.navigator{
+	
+	text-align: center;
+}
+.controls{
+	
+}
+.editor{
+	min-height:200px;
+	background-color: white;
+	color:black;
+	font-size: 25px;
+}
+/*TWINS*/
+.twin{
+	width:49%;
+	   background-color: aquamarine;
+}
+.planner{
+	
+	min-height: 200px;
+}
+.editor{
+	height: 100%;
+	float:left;
+	background-color: black;
+}
+.cajon{
+	border: 1px solid #00d0ff;
+    width: 30%;
+    min-height: 30px;
+    background-color: black;
+    color: #00d0ff;
+    padding: 10px;
+    float: left;
+    font-size: 15px;
+}
+.cajon:hover{
+	background-color: blue;
+	color:white;
+
+}
+.m{
+	font-size: 15px;
+}
+.void{
+	background-color: grey !important;
+	color:black;
+	pointer-events: none;
+}
+.square{
+	height:100;
+	width:49%;
+	float:left;
+}
+.objeto{
+	/*background-color: #0000ff4a;*/
+    width: 90%;
+    height: 30vh;
+    margin-left: 5%;
+    color: white;
+    border:2px solid springgreen;
+    font-size: 15px;
+}
+.botonp{
+	font-size: 40px; border:1px solid black;
+	background-color: white;
+}
+.botonp:hover{
+	background-color: springgreen;
+	font-size: 40px; border:1px solid black;
+}
+</style>
+
+<body>
+	<div class="header mainview">Editar <input type="text" id="claveacceso" name=""><button onclick="getquest();">---></button>
+
+		<hr>
+		</div>
+	
+	<div class="controls mainview">
+
+	</div>
+	<div class="navigator mainview">
+		<img src="img/save.png"  onclick="save()" style="width:40px;margin-right: 40px; background-color: white;">
+		<select class="twin void" id="eventos">
+		  <option value="">EVENTOS</option>
+		</select>
+		<span class="botonp" id="add" onclick="addevent();" style="">+</span>
+		<span class="botonp void">-</span>
+		<!-- <select class="twin void"  id="elementos">
+		  <option value="">ELEMENTOS</option>
+		</select> -->
+		<hr>
+	</div>
+	<div class="window mainview">
+		<textarea id="consola">Bienvenido al editor de Jouette, escriba el nombre del archivo a editar hasta arriba.
+		</textarea>
+		<hr>
+	</div>
+	<div class="objeto mainview">
+		
+		
+		
+	</div>
+	
+	
+	<!-- <div class="editor mainview">
+		<div class="cajon ">GUARDAR</div>
+		<div class="cajon void">VISTA GENERAL </div>
+		<hr>
+	</div> -->
+</body>
+	<script type="text/javascript">
+var _eventos={};
+var seccOnEdit="-";
+var familyOnEdit=0;
+var keyOnEdit=0;
+var _template={
+      "media": {
+        "url": "",
+        "caption": "",
+        "credit": ""
+      },
+      "start_date": {
+        "month": "6",
+        "day": "13",
+        "year": "1986"
+      },
+      "text": {
+        "headline": "New",
+        "text": "<p>----</p>"
+      },
+      "id":"",
+      "class":"evento"
+    }
+$(document).ready(function(){
+  console.log("READY")
+
+});
+$("#consola").keyup(function(){
+  savekey();
+});
+$( "#eventos" ).change(function() {
+
+  refresh();
+});
+function getquest(){
+  name=$("#claveacceso").val();
+  $("#registeredname").html(name);
+  $.ajax({
+        url: '/menu',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({"name":name}),
+        dataType: 'json',
+        error: function(xhr, status, error) {
+          console.log(xhr, status, error);
+          $("#console").html("No se pudo salvar");
+        },
+        success: function (data){
+          $(".phase1").hide();
+        $(".phase2").show();
+          console.log("data",data)
+          _MENU=data;
+          console.log(_MENU)
+         $("#eventos").html("");
+	     $("#eventos").removeClass("void");
+	     $("#elementos").html("");
+	     $("#elementos").removeClass("void");
+	  	for(secc in _MENU.events){
+	  		_eventos[secc]=_MENU.events[secc];
+		          	
+		              $("#eventos").append('<option secc="'+secc+'" value="'+_MENU.events[secc].text.headline+'">'+_MENU.events[secc].start_date.year+"-"+_MENU.events[secc].text.headline+'</option>');
+		          
+	    }
+          
+            refresh()
+            // despliegaQ("A: Introducción a la compañía",0);
+            gotoQ(0)
+          
+        }
+    });
+  //hidepass();
+}
+function addevent(){
+	key=Date.now();
+	_eventos[key]=_template;
+	$('#eventos').append('<option secc="'+key+'" value="'+_eventos[key].text.headline+'">'+_eventos[key].start_date.year+"-"+_eventos[key].text.headline+'</option>');
+	gotoQ(key)
+}
+function save(){
+  name2save=$("#claveacceso").val();
+  evArray=[];
+  for(key in _eventos){
+  	evArray.push(_eventos[key]);
+  	//evArray[key]=_eventos[key];
+  }
+  _MENU.events=evArray;
+  $.ajax({
+        url: '/saveprogress',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({"name":name2save,"cuestionario":_MENU}),
+        dataType: 'json',
+        error: function(xhr, status, error) {
+          console.log(xhr, status, error);
+          $("#console").html("No se pudo salvar");
+          //alert(xhr.responseText);
+        },
+        success: function (data){
+          console.log("data")
+          
+          
+        }
+    });
+}
+
+
+function refresh(){
+	seccion=$( "#eventos option:selected" ).attr("secc");
+	seccOnEdit=seccion;
+	console.log(seccion);
+	gotoQ(seccion)
+}
+function gotoQ(secc){
+	seccion=_eventos[secc];
+	$('#eventos option[secc="'+secc+'"]').attr('selected', 'selected');
+	seccOnEdit=secc;
+	$(".objeto").html("");
+	factor=50;
+	//fontsize=' style="font-size:'+(factor/(seccion.media[elemento].length/5))+'px;" '
+	for(elemento in seccion.media){
+		$(".objeto").append('<div  class="cajon attribute" onclick=\'editkey('+secc+','+'"media"'+',"'+elemento+'")\'>'+elemento+': <span class="m mmedia" >'+seccion.media[elemento].substring(0, 10)+'</span></div>')
+	}
+	for(elemento in seccion.start_date){
+		$(".objeto").append('<div  class="cajon attribute" onclick=\'editkey('+secc+','+'"start_date"'+',"'+elemento+'")\'>'+elemento+': <span class="m mstart_date" >'+seccion.start_date[elemento].substring(0, 10)+'</span></div>')
+	}
+	for(elemento in seccion.text){
+		$(".objeto").append('<div class="cajon attribute"  onclick=\'editkey('+secc+','+'"text"'+',"'+elemento+'")\'>'+elemento+': <span class="m mtext" >'+seccion.text[elemento].substring(0, 20)+'</span></div>')
+	}
+
+}
+function editkey(secc,family,key){
+	console.log("Edit",secc,family,key)
+	seccOnEdit=secc;
+	familyOnEdit=family;
+	keyOnEdit=key;
+	val=_eventos[secc][family][key];
+	$("#consola").val(val);
+}
+function savekey(){
+	console.log("savekey",seccOnEdit,familyOnEdit,keyOnEdit)
+	_eventos[seccOnEdit][familyOnEdit][keyOnEdit]=$("#consola").val();
+	$( '#eventos option[secc="'+seccOnEdit+'"]' ).html(_eventos[seccOnEdit].start_date.year+"-"+_eventos[seccOnEdit].text.headline);
+	gotoQ(seccOnEdit);
+}
+</script>
+
+</html>
