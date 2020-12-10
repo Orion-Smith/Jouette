@@ -28,24 +28,6 @@
       },
       "id":"13/5/1986-Gabo",
       "class":"evento"
-    },
-    {
-      "media": {
-        "url": "url",
-        "caption": "caption",
-        "credit": "credit"
-      },
-      "start_date": {
-        "month": "6",
-        "day": "13",
-        "year": "1987"
-      },
-      "text": {
-        "headline": "otra cosa ",
-        "text": "<p>----</p>"
-      },
-      "id":"13/5/1986-Gabo",
-      "class":"evento"
     }
   ]
 }
